@@ -1,0 +1,503 @@
+SQL Queries
+1) DDL (Data Definition Language)
+--DDL Statement 
+--Create statement
+-- Create Database
+
+create database DML;
+
+–1)Create Database
+
+CREATE TABLE Customer_Data (
+    CustId INT PRIMARY KEY,
+    CustomerName VARCHAR(40) NOT NULL,
+    CustomerCity VARCHAR(40) NOT NULL,
+    CustomerPhone CHAR(10) UNIQUE NOT NULL
+	);
+–2) Alter Statement
+
+–a) Add new column
+Alter table Customer_Data add Email varchar(20);
+
+–b) Modify existing table
+Alter table Customer_Data alter column CustomerName varchar(50);
+
+–c) Drop a column
+Alter table Customer_Data drop column Email;
+
+–d) Add Foreign Key constraint
+Alter table Customer_Data add OrderId int;
+Alter table Customer_Data
+Add constraint fk_order foreign key (orderId) references Order(OrderId);
+
+– 3) Rename Statement
+–Rename Table
+Sp_rename  ‘Customer_Data’ , ‘Client Data’;
+
+–4) Drop Statement
+
+–Drop Table
+Drop table Customer_Date;
+
+–5) Truncate Statement
+
+–Delete table keep structure
+TRUNCATE TABLE Customer_Data;
+
+
+
+2)DML (Data Manipulation Language)
+
+–1) Insert Statement
+
+– Add new data into table
+INSERT INTO Customer_Data (CustId, CustomerName, CustomerCity, CustomerPhone)
+VALUES (101, 'Ravi Patil', 'Pune', '9876543210');
+
+–2) Update Statement
+
+–Modify existing data
+UPDATE Customer_Data
+SET CustomerCity = 'Nashik'
+WHERE CustId = 101;
+
+–3) Delete Statement
+–Removes specific Data
+DELETE FROM Customer_Data
+WHERE CustId = 101;
+
+
+
+
+3) DQL (Data Query Language)
+
+– Insert Statement
+
+-- Insert Data into Department
+INSERT INTO Department (DeptNo, DeptName, Loc) VALUES
+('D1', 'Sales', 'L1'),
+('D2', 'Manager', 'L2'),
+('D3', 'Clerk', 'L3');
+
+-- Create Cust Table
+CREATE TABLE Cust (
+    CID CHAR(5) PRIMARY KEY,
+    Cname VARCHAR(20) NOT NULL
+);
+
+-- Insert Data into Cust
+INSERT INTO Cust (CID, Cname) VALUES
+('1A', 'X'),
+('2A', 'Y'),
+('3A', 'Z');
+
+-- Create Employee Table
+CREATE TABLE Employee (
+    Empno CHAR(10) PRIMARY KEY,
+    Ename VARCHAR(20) NOT NULL,
+    Sal INT NOT NULL,
+    Phno CHAR(10) UNIQUE NOT NULL,
+    Hiredate DATE NOT NULL,
+    Deptno CHAR(5) NOT NULL,
+    CID CHAR(5) NOT NULL,
+
+    -- Updated Foreign Key Constraints to reference Department
+    CONSTRAINT FK_Department FOREIGN KEY (DeptNo) REFERENCES Department(DeptNo),
+    CONSTRAINT FK_Cust FOREIGN KEY (CID) REFERENCES Cust(CID)
+);
+
+-- Insert Data into Employee
+INSERT INTO Employee (Empno, Ename, Sal, Phno, DeptNo, CID, HireDate) VALUES
+('1', 'Smith', 100, '1234567890', 'D1', '1A', '2025-05-15'),
+('2', 'Allen', 200, '1234567891', 'D2', '1A', '2025-01-01'),
+('3', 'Ward', 300, '1234567892', 'D3', '2A', '2025-05-15'),
+('4', 'Jon', 400, '1234567893', 'D1', '2A', '2024-03-13'),
+('5', 'Martin', 500, '1234567894', 'D2', '3A', '2025-01-01'),
+('6', 'Smith', 500, '1234567895', 'D3', '3A', '2025-05-15'),
+('7', 'Clark', 500, '1234567896', 'D1', '1A', '2024-03-13'),
+('8', 'Scott', 6000, '1234567897', 'D2', '2A', '2025-01-01'),
+('9', 'King', 150, '1234567898', 'D3', '3A', '2025-05-15'),
+('10', 'Adem', 250, '1234567899', 'D1', '1A', '2025-01-01'),
+('11', 'Smith', 650, '1234567800', 'D2', '2A', '2024-03-13'),
+('12', 'Ford', 120, '1234567801', 'D3', '3A', '2025-05-15'),
+('13', 'Miller', 132, '1234567802', 'D1', '1A', '2024-03-13');
+
+--To view Data in Database
+select * from Department;
+select * from Cust;
+select * from Employee;
+
+select *
+from Employee
+where Ename ='Smith';
+
+--Arthmetic operator
+--Multiplication Operator
+select sal*12
+from Employee;
+
+--Multiplication Operator with alias name
+select Ename,sal*12 as Annualsal
+from Employee;
+
+--Addition Operator
+select Sal, sal+50
+from Employee;
+
+--Substraction Operator
+select sal-20 
+from Employee;
+
+--Division operator
+select sal/2
+from Employee;
+
+select Ename,sal/2
+from Employee
+where Ename='Smith';
+
+--Comparasion Operator
+--Equals to operator
+select Ename, sal
+from Employee
+where sal=500;
+
+select *
+from Employee
+where Hiredate ='2025-05-15';
+
+--Not Equal to operator
+select *
+from Employee
+where Hiredate !='2025-05-15';
+
+select *
+from Employee
+where sal !=500;
+
+--Logical operator
+--Greater than operator
+select *
+from Employee
+where sal >200;
+
+--Greater than equals to operator
+select *
+from Employee
+where sal >=200;
+
+--less than operator
+select *
+from Employee
+where sal <200;
+
+--less than equals to operator
+select *
+from Employee
+where sal <=200;
+
+--Logical operator
+--AND operator
+select *
+from Employee
+where Deptno='D1' and Hiredate='2025-05-15';
+
+select * from Employee;
+
+select * 
+from Employee
+where Deptno='D1' and Ename='Smith';
+
+select * 
+from Employee
+where Deptno='D1' and sal=6000;
+
+select Ename, (sal*12+200)
+from Employee;
+
+--OR operator
+select *
+from Employee
+where Sal=100 or Deptno='D1';
+
+select *
+from Employee
+where Deptno='D1' or CID='1A';
+
+select *
+from Employee
+where Deptno='D1' and CID='1A';
+
+
+
+select * from Employee;
+
+select *
+from Employee
+where Sal=100 or Sal=500;
+
+select *
+from Employee
+where Sal>=100 or Sal<=200;
+
+select *
+from Employee
+where Hiredate < '2025-05-15' or Hiredate > '2025-01-01';
+
+select *
+from Employee
+where Sal=500 or Hiredate!='2025-01-01';
+
+select *
+from Employee
+where Deptno = 'D1' and CID != '1A';
+
+
+--sal>500 and (Denpno=D1 or D2)
+select *
+from Employee
+where Sal >500 and (Deptno ='D1' or Deptno='D2');
+
+--sal <200 and (sal !=100 or sal !=6000)
+select *
+from Employee
+where Sal <200 and (Sal !=100 or sal !=6000);
+
+--NOT operator
+Select *
+From Employee
+Where not Deptno ='D1';
+
+Select *
+From Employee
+Where not Deptno ='D1';
+
+select * 
+from Employee
+where Deptno != 'D1'and Deptno !='D2';
+
+select *
+from Department
+where DeptNo!='D1';
+
+--Special operator
+--Between operator
+select *
+from Employee
+where Hiredate between '01-01-2024' and '01-01-2025';
+
+--not between operator
+select *
+from Employee
+where Hiredate not between '01-01-2024' and '01-01-2025';
+
+select * 
+from Employee
+where Sal between 100 and 6000;
+
+select * 
+from Employee
+where Sal not between 650 and 6000;
+
+--like operator
+select *
+from Employee
+where Ename like '%m';
+
+select * from Employee;
+
+select *
+from Employee
+where Ename like '%h';
+
+select *
+from Employee
+where Ename like 'A%';
+
+select *
+from Employee
+where Ename like 'S%';
+
+select *
+from Employee
+where Ename like '%i%';
+
+select * from Employee;
+
+select *
+from Employee
+where Ename like '%i%';
+
+select *
+from Employee
+where Ename like '%l%';
+
+select *
+from Employee
+where Ename like '%ll%';
+
+select *
+from Employee
+where Ename like '%a%r%';
+
+select *
+from Employee
+where Ename like '%a%i%';
+
+select Ename, Sal
+from Employee
+where Sal like '____';
+
+select Ename, Sal
+from Employee
+where Sal like '___';
+
+select Ename, Sal
+from Employee
+where Ename like '___';
+
+select Ename, Sal
+from Employee
+where Ename like '____'; 
+
+select Ename, Sal
+from Employee
+where Ename like '________';
+
+Select * from Employee;
+
+--a,e,i,o,u
+select Ename
+from Employee
+where Ename like 'A%' or Ename like 'E%' or Ename like 'I%' or Ename like 'O%' or Ename like 'U%';
+
+SELECT *
+FROM Employee
+WHERE Ename LIKE 'A%' 
+   OR Ename LIKE 'E%' 
+   OR Ename LIKE 'I%' 
+   OR Ename LIKE 'O%' 
+   OR Ename LIKE 'U%';
+
+
+--select Ename
+--from Employee
+--where Ename REGEXP '^[AEIOU]';
+
+--Vowels using in operator
+SELECT Ename  
+FROM Employee  
+WHERE Ename IN ('A%', 'E%', 'I%', 'O%', 'U%');
+
+--not like operator
+select *
+from Employee
+where Ename not like 'A%';
+
+select *
+from Employee
+where Ename not like '%g';
+
+select *
+from Employee
+where Ename not like '%i%';
+
+select *
+from Employee
+where Ename not like '%l%';
+
+select *
+from Employee
+where Ename not like '%ll%';
+
+select *
+from Employee
+where Ename not like '%a%r%';
+
+select *
+from Employee
+where Ename not like '%a%i%';
+
+select *
+from Employee
+where Ename not like '%i%' and Ename like 'S%';
+
+select *
+from Employee
+where Ename not like '%a%' and Ename not like '%i%';
+
+select Ename, Sal
+from Employee
+where Sal not like '____';
+
+select Ename, Sal
+from Employee
+where Sal not like '___';
+
+select Ename, Sal
+from Employee
+where Ename  not like '_____';
+
+select Ename, Sal
+from Employee
+where Ename like '____'; 
+
+select Ename, Sal
+from Employee
+where Ename not like '________';
+
+select * from Employee;
+
+--Contatation Operator
+select 'Hello' + ' ' + 'World';
+
+select Ename + ' ' +Deptno
+from Employee;
+
+select Ename + ' ' + Deptno as EmployeeDept
+from Employee
+where Ename = 'Ford' or Ename ='Smith';
+
+--deptno=D3 and sal between 100 - 500 and hiredate > 01-01-2025
+
+select *
+from Employee
+where Deptno='D3' and Sal between 100 and 500 and Hiredate > '01-01-2025';
+
+select *
+from Employee
+where Deptno='D3' or Sal between 100 and 500 or Hiredate > '01-01-2025';
+
+--sal>100 or deptno D3 or CID 1A
+
+select *
+from Employee
+where sal >100 or Deptno='D3' or CID='1A';
+
+select *
+from Employee
+where sal >100 and Deptno='D3' and CID='1A';
+
+--sal>100 or deptno in D1 D2 D3 or CID not in 1A 2A 3A
+
+select *
+from Employee
+where sal>100 or Deptno in ('D1','D2', 'D3') or CID not in ('A1','2A','3A');
+
+select *
+from Employee
+where sal>100 and Deptno in ('D1','D2', 'D3') and CID not in ('A1','2A','3A');
+
+--hiredate in between 01-01-2024 and 01-01-2025 or name should start with  S
+
+select Ename
+from Employee
+where Hiredate between '01-01-2024' and '01-01-2025' or Ename like 'S%';
+
+select * from Employee;
+select * from Department;
+
+--name of employee who is working in sales dept
+
+
+
